@@ -56,8 +56,6 @@ if __name__ == '__main__':
         else:
             raise
 
-    # if ret != 0:
-    #     sys.exit(ret)
 
     cwd = os.path.dirname(os.path.realpath(__file__))
     dbconf = os.path.join(cwd, 'dbconf.py')
