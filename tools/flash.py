@@ -16,7 +16,7 @@ def hex2modhex(string):
     return string.translate(modhex)
 
 def get_public(name):
-    return name.rjust(8, 'q')[:8]
+    return name.rjust(6, 'q')[:6]
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
