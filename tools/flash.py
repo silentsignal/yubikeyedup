@@ -40,13 +40,6 @@ if __name__ == '__main__':
 
     print(cmd)
 
-    # prefer sudo over running this script with root privileges
-    if os.getuid() != 0:
-        if not distutils.spawn.find_executable('sudo'):
-            print('Root privileges required.')
-            sys.exit(1)
-        cmd = [ 'sudo' ] + cmd
-
     try:
         ret = subprocess.call(cmd)
     except OSError as e:
@@ -55,7 +48,6 @@ if __name__ == '__main__':
             sys.exit(1)
         else:
             raise
-
 
     cwd = os.path.dirname(os.path.realpath(__file__))
     dbconf = os.path.join(cwd, 'dbconf.py')
