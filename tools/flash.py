@@ -15,11 +15,6 @@ def hex2modhex(string):
     modhex = ''.join(dict(l).get(chr(j), '?') for j in range(256))
     return string.translate(modhex)
 
-def gen_random(size):
-    with open('/dev/urandom','rb') as fp:
-        s = fp.read(size)
-    return s
-
 def get_public(name):
     return name.rjust(8, 'q')[:8]
 
@@ -31,10 +26,10 @@ if __name__ == '__main__':
 
     name = sys.argv[1]
     db = sys.argv[2]
-    aeskey = gen_random(16).hex()
+    aeskey = os.urandom(16).hex()
     public = get_public(name).encode('utf-8').hex()
     public_m = hex2modhex(public)
-    uid = gen_random(6).hex()
+    uid = os.urandom(6).hex()
 
     cmd = [ 'ykpersonalize',
             '-1',
