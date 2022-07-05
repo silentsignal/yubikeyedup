@@ -1,6 +1,6 @@
 import re
 
-from Cryptodome.Cipher import AES
+from Crypto.Cipher import AES
 
 from sql import *
 import yubistatus
