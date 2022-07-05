@@ -31,11 +31,11 @@ if __name__ == '__main__':
     public_m = hex2modhex(public)
     uid = os.urandom(6).hex()
 
-    cmd = [ 'ykpersonalize',
-            '-1',
-            '-ofixed=h:%s' % public,
-            '-ouid=%s' % uid,
-            '-a%s' % aeskey
+    cmd = [ 'ykman', 'otp', 'yubiotp',
+            '1',
+            '-P', public_m,
+            '-p', uid,
+            '-k', aeskey
     ]
 
     print(cmd)
