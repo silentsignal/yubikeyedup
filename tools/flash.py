@@ -6,6 +6,7 @@ Write a new AES key to a YubiKey, and store it into a sqlite3 database.
 
 import distutils.spawn
 import os
+import re
 import sys
 import subprocess
 
@@ -24,10 +25,15 @@ if __name__ == '__main__':
         print('eg: %s bobama db/yubikeys.sqlite3' % sys.argv[0])
         sys.exit(0)
 
+    info = subprocess.check_output(['ykman', 'info'])
+    m = re.search(rb'^Serial number: (\d+)$', info, re.MULTILINE)
+    if not m:
+        raise ValueError('Could not determine serial number')
+
     name = sys.argv[1]
     db = sys.argv[2]
     aeskey = os.urandom(16).hex()
-    public = get_public(name).encode('utf-8').hex()
+    public = '{0:012x}'.format(int(m.group(1)))
     public_m = hex2modhex(public)
     uid = os.urandom(6).hex()
 
